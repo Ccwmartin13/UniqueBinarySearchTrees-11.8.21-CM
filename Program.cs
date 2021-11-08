@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 
 namespace UniqueBinarySearchTrees_11._8._21_CM
 {
@@ -11,7 +12,7 @@ namespace UniqueBinarySearchTrees_11._8._21_CM
         {
             try
             {
-                int totalBinarySearchTrees = NumTrees(14);
+                int totalBinarySearchTrees = NumTrees(19);
 
                 Console.WriteLine(totalBinarySearchTrees);
             }
@@ -29,60 +30,14 @@ namespace UniqueBinarySearchTrees_11._8._21_CM
             }
             else
             {
-                ArrayList binarySearchTrees = constructTrees(1, n);
-                return binarySearchTrees.Count;
+                BigInteger numerator = factorial(2 * n), denominator = factorial(n + 1) * factorial(n);
+                return (int)(numerator / denominator);
             }
         }
 
-        public static ArrayList constructTrees(int start, int end)
+        private static BigInteger factorial(int n)
         {
-            ArrayList list = new ArrayList();
-
-            if (start > end)
-            {
-                list.Add(null);
-                return list;
-            }
-
-            for (int i = start; i <= end; i++)
-            {
-                ArrayList leftSubtree = constructTrees(start, i - 1);
-
-                ArrayList rightSubtree = constructTrees(i + 1, end);
-                
-                foreach (Node left in from object v1 in leftSubtree
-                                     let left = (Node)v1
-                                     select left)
-                {
-                    IEnumerable<(Node right, Node node)> enumerable()
-                    {
-                        return from object v in rightSubtree
-                               let right = (Node)v
-                               let node = new Node(i)
-                               select (right, node);
-                    }
-
-                    foreach ((Node right, Node node) in enumerable())
-                    {
-                        node.left = left;
-                        node.right = right;
-                        list.Add(node);
-                    }
-                }
-            }
-
-            return list;
-        }
-
-        public class Node
-        {
-            public int key;
-            public Node left, right;
-            public Node(int data)
-            {
-                key = data;
-                left = right = null;
-            }
+            return n == 0 ? 1 : n * factorial(n - 1);
         }
     }
 }
