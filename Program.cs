@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace UniqueBinarySearchTrees_11._8._21_CM
@@ -53,7 +54,7 @@ namespace UniqueBinarySearchTrees_11._8._21_CM
                                      let left = (Node)v1
                                      select left)
                 {
-                    System.Collections.Generic.IEnumerable<(Node right, Node node)> enumerable()
+                    IEnumerable<(Node right, Node node)> enumerable()
                     {
                         return from object v in rightSubtree
                                let right = (Node)v
