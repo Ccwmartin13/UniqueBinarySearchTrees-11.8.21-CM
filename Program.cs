@@ -9,7 +9,7 @@ namespace UniqueBinarySearchTrees_11._8._21_CM
         {
             try
             {
-                int totalBinarySearchTrees = NumTrees(5);
+                int totalBinarySearchTrees = NumTrees(20);
 
                 Console.WriteLine(totalBinarySearchTrees);
             }
@@ -21,9 +21,9 @@ namespace UniqueBinarySearchTrees_11._8._21_CM
 
         public static int NumTrees(int n)
         {
-            if (n > 19)
+            if (n < 1 || n > 19)
             {
-                throw new Exception("Number cannot be larger than 19.");
+                throw new Exception("Number cannot be smaller than 1 or larger than 19.");
             }
             else
             {
