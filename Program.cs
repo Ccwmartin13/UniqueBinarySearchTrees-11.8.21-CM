@@ -21,9 +21,15 @@ namespace UniqueBinarySearchTrees_11._8._21_CM
 
         public static int NumTrees(int n)
         {
-            ArrayList binarySearchTrees = constructTrees(1, n);
-
-            return binarySearchTrees.Count;
+            if (n > 19)
+            {
+                throw new Exception("Number cannot be larger than 19.");
+            }
+            else
+            {
+                ArrayList binarySearchTrees = constructTrees(1, n);
+                return binarySearchTrees.Count;
+            }
         }
 
         public static ArrayList constructTrees(int start, int end)
