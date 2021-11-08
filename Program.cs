@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Linq;
 
 namespace UniqueBinarySearchTrees_11._8._21_CM
 {
@@ -9,7 +10,7 @@ namespace UniqueBinarySearchTrees_11._8._21_CM
         {
             try
             {
-                int totalBinarySearchTrees = NumTrees(20);
+                int totalBinarySearchTrees = NumTrees(14);
 
                 Console.WriteLine(totalBinarySearchTrees);
             }
@@ -47,21 +48,23 @@ namespace UniqueBinarySearchTrees_11._8._21_CM
                 ArrayList leftSubtree = constructTrees(start, i - 1);
 
                 ArrayList rightSubtree = constructTrees(i + 1, end);
-
-                for (int j = 0; j < leftSubtree.Count; j++)
+                
+                foreach (Node left in from object v1 in leftSubtree
+                                     let left = (Node)v1
+                                     select left)
                 {
-                    Node left = (Node)leftSubtree[j];
-
-                    for (int k = 0; k < rightSubtree.Count; k++)
+                    System.Collections.Generic.IEnumerable<(Node right, Node node)> enumerable()
                     {
-                        Node right = (Node)rightSubtree[k];
+                        return from object v in rightSubtree
+                               let right = (Node)v
+                               let node = new Node(i)
+                               select (right, node);
+                    }
 
-                        Node node = new Node(i);
-
+                    foreach ((Node right, Node node) in enumerable())
+                    {
                         node.left = left;
-
                         node.right = right;
-
                         list.Add(node);
                     }
                 }
